@@ -1,11 +1,14 @@
+English | [中文](/ReadMe.zh.md)
 # Vue Blog
 An windows style blog app based on github api.
 
-一个基于Github API的Windows风格博客应用
-
 > Star or fork if you interested
 ## Feature
-Install blog in morden browser. Read it any time.
+📚 Install blog in morden browser. Read it any time.
+
+🍻 Subscribe others blog. still on process
+
+🍀 Easy to use. Just like windows explorer.
 
 ## Quick setup
 Prepare: you should have a git reposity store your article,if you don't have see here
@@ -19,20 +22,9 @@ Prepare: you should have a git reposity store your article,if you don't have see
 If this is not clear see Vedio here
 
 ## TODOLIST
-- publish standard for parser.
-- html file parser
+- .url support
 - OpenWith popup
 - Add network location(shortcut in sidebar)
-
-### Bookmark
-- Github api
-  - [REST API v3](https://developer.github.com/v3/)
-  - [GraphQL API v4](https://developer.github.com/v4/)
-- Dev tools
-  - [Vue](https://vuejs.org)
-  - [Vue composition api](https://github.com/vuejs/composition-api)
-  - [StoryBook](https://storybook.js.org/)
-  - [Jest](https://jestjs.io)
 
 ### Author
 Ame-yu

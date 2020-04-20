@@ -1,6 +1,6 @@
 import setting from "@/config/setting"
 import { openDB, DBSchema } from 'idb';
-import {Strategy, GithubStrategy} from "./strategy"
+import {Strategy, JsDeliverStrategy} from "./strategy"
 import Vue from "vue"
 import { Setting } from './system';
 import { AxiosResponse } from 'axios';
@@ -27,7 +27,7 @@ class ShelfOp {
     strategy?: Strategy
     constructor(repository?: string){
         this.repository = repository || this.setting.repository
-        this.strategy = GithubStrategy()
+        this.strategy = new JsDeliverStrategy()
     }
 
     getDB(){
@@ -59,6 +59,7 @@ class ShelfOp {
     }
 
     async fetch(path: string): Promise<string>{
+        console.log(this.strategy)
         if(this.strategy){
             const { data } = await this.strategy.getResource(path) as AxiosResponse
             this.update(path, data);

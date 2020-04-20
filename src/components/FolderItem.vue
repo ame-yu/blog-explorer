@@ -1,5 +1,5 @@
 <template>
-  <ul class="folder">
+  <ul class="folder" >
     <li>
       <Icon iconName="arrow-down" @click.native="toggle()" :class="{hide, final}" />
       <span class="folder-icon" @click="go(dir.path)">
@@ -16,7 +16,7 @@
 import {dirObj} from "@/store/type"
 import {routerStore} from "@/store/routerStore"
 import Icon from "./Icon.vue";
-import { defineComponent, ref, computed } from "@vue/composition-api";
+import { defineComponent, ref, computed, watch } from "@vue/composition-api";
 import { shortName } from "@/utils/githubGraphQL";
 interface Props {
   dir: dirObj;
@@ -30,8 +30,11 @@ export default defineComponent({
   components: {
     Icon
   },
+  
   setup(props: Props) {
     const hide = ref(true);
+    const pwd = computed(()=>routerStore.pwd)
+    watch(pwd,(v) => hide.value = !v.includes(props.dir.path))  
     function go(path: string){
         routerStore.goto(path)
     }
@@ -82,6 +85,7 @@ li {
     &.final{
       opacity 0!important
     }
+    
   }
 
   span.folder-icon {
@@ -104,7 +108,6 @@ li {
 
 ul {
   padding-left: 0rem;
-
   ul .icon {
     margin-left: 1rem;
   }

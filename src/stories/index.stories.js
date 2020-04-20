@@ -11,7 +11,6 @@ export default {
 export const basic = () => ({
   components: { OpenWith },
   template: '<OpenWith />',
-  
 })
 
 

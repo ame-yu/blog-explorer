@@ -1,0 +1,17 @@
+<template>
+  
+</template>
+
+<script>
+import { defineComponent, computed} from "@vue/composition-api";
+export default defineComponent( {
+    setup(){
+        //
+    }
+
+})
+</script>
+
+<style lang="stylus" scoped>
+
+</style>

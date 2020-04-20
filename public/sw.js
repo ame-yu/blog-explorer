@@ -1,5 +1,3 @@
-console.log("Service-worker online")
-
 const cacheName = "cache:v1"
 const resPrecache = [
     '/',
@@ -10,7 +8,7 @@ const resPrecache = [
 ]
 
 self.addEventListener("install", e => {
-    console.log("install now")
+    console.log(e)
     e.waitUntil(
         caches.open(cacheName).then(cache => {
             return cache.addAll(resPrecache)

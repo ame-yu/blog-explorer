@@ -15,7 +15,7 @@ abstract class SystemOp {
     abstract tableName: SystemModule
     static strategy?: Strategy
     constructor(){
-        SystemOp.strategy = GithubStrategy()
+        SystemOp.strategy = new GithubStrategy()
     }
     get db() {
         const tableName = this.tableName
@@ -63,13 +63,14 @@ class InfoOp extends SystemOp {
         if(!SystemOp.strategy) console.error("检查json配置")
         const db = await this.db
         const origin = (await db.get(this.tableName, versionNunber)) || {}
-        const custom = await (await fetch(SystemOp.strategy!.endpoint)).json()
+        const latest = await (await fetch(SystemOp.strategy!.endpoint)).json()
         const info = {
-            ...JSON.parse(custom.body),
-            lastUpdate: custom.published_at
+            ...JSON.parse(latest.body),
+            lastUpdate: latest.published_at
         }
         //有新Release就更新
-        if(new Date(custom.published_at) > new Date(origin.lastUpdate)){
+        console.log(info)
+        if(!origin.lastUpdate || new Date(latest.published_at) > new Date(origin.lastUpdate)){
             this.put(info);
         }
         return info

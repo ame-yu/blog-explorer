@@ -4,16 +4,16 @@
 
 <script lang="ts">
 import shelf from "@/store/idb/shelf"
-import { defineComponent, computed,ref } from "@vue/composition-api";
+import { defineComponent, ref } from "@vue/composition-api";
 import { routerStore } from "@/store/routerStore";
-import marked from "marked"
-
+import loader from "@/config/loader"
 export default defineComponent({
   setup() {
+    const fileName = routerStore.pwd
     const raw = ref("Loading")
-    shelf.open().query(routerStore.pwd).then(res => {
-      console.log(res)
-      raw.value =  marked(res)
+    shelf.open().query(fileName).then(res => {
+      const html = loader(fileName, res) as string
+      raw.value =  html
     })
     return {
         raw

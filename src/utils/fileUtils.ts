@@ -1,10 +1,11 @@
 import { Manifest, dirObj } from "@/store/type"
-
+import mapping from "@/config/suffixMapping"
 /**
 * @param source one of info Manifest or DirObj
 * @return Array of path e.g.["/fileA","/folderA"]
 */
 
+function suffix(fileName: string){return fileName.includes(".")?fileName.split(".").slice(-1)[0]:"文件"}
 
 function pwdFiles(source: Manifest | dirObj, path: string): Array<string> {
   if (source.path) {
@@ -41,21 +42,23 @@ function pwdFiles(source: Manifest | dirObj, path: string): Array<string> {
 
 interface FileObj {
   fileName: string;
-  fileType: "txt" | "image" | "folder";
+  fileType: string;
 }
 function pwdManifest(source: Manifest, path: string): Array<FileObj> {
+  //Mapping
   const p = path === "/" ? "" : path
   const pf = pwdFiles(source, path)
   return pf.map((it: string) => {
     if (source[`${p}/${it}`]) {
       return {
+        ...source[`${p}/${it}`],
         fileName: it,
-        fileType: "txt"
+        fileType: mapping(suffix(it)).type
       }
     } else {
       return {
         fileName: it,
-        fileType: "folder"
+        fileType: "文件夹"
       }
     }
   })

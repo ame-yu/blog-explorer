@@ -10,9 +10,9 @@ export interface Strategy {
     getResource(url: string, payload?: any): unknown;
 }
 
-class MyGithubStrategy implements Strategy{
+export class GithubStrategy implements Strategy{
     setting: Setting
-    constructor(arg: Setting){
+    constructor(arg: Setting = Vue.$setting.value){
         this.setting = arg
     }
 
@@ -24,9 +24,14 @@ class MyGithubStrategy implements Strategy{
     * @return Promise<any>
     */
     getResource(path: string): Promise<string>{
-        const reqPath = `https://raw.githubusercontent.com/ame-yu/blog/master${path}`
+        const reqPath = `https://raw.githubusercontent.com/${this.setting.repository}/master${path}`
         return axios.get(reqPath)
     }
 }
 
-export const GithubStrategy = () => new MyGithubStrategy(Vue.$setting.value)
+export class JsDeliverStrategy extends GithubStrategy{
+    getResource(path: string): Promise<string>{
+        const reqPath = `https://cdn.jsdelivr.net/gh/${this.setting.repository}@master${path}`
+        return axios.get(reqPath)
+    }
+}
